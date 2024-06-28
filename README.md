@@ -38,3 +38,13 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Dependecies Issue
 Peer dependency for react with clerk and drizzle-orm cause problems so use peer dependecy flags
+
+
+## Tools and Technologies used in this project
+Nextjs (Typescript)
+Dribble ORM
+ShadCN
+TailwindCSS
+NeonDB/Serverless
+Stripe 
+Edge Tools
