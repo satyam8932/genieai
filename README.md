@@ -47,4 +47,5 @@ ShadCN
 TailwindCSS
 NeonDB/Serverless
 Stripe 
+Firebase Storage Bucket (Firebase rules are allowed for all users)
 Edge Tools
