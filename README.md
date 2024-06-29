@@ -41,11 +41,11 @@ Peer dependency for react with clerk and drizzle-orm cause problems so use peer 
 
 
 ## Tools and Technologies used in this project
-Nextjs (Typescript)
-Dribble ORM
-ShadCN
-TailwindCSS
-NeonDB/Serverless
-Stripe 
-Firebase Storage Bucket (Firebase rules are allowed for all users)
-Edge Tools
+- Nextjs (Typescript)
+- Dribble ORM
+- ShadCN
+- TailwindCSS
+- NeonDB/Serverless
+- Stripe 
+- Firebase Storage Bucket (Firebase rules are allowed for all users)
+- Edge Tools

@@ -1,65 +1,114 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { Inbox } from 'lucide-react'
+import { Inbox, Loader2 } from 'lucide-react'
 import { storage } from '@/lib/firebase'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios';
+import toast from 'react-hot-toast'
 
 const FileUpload = () => {
+  const [uploading, setUploading] = React.useState(false);  // Track upload progress state
+  const { mutate, status } = useMutation({
+    mutationFn: async ({ fileKey, fileName }: { fileKey: string, fileName: string }) => {
+      const response = await axios.post('/api/create-chat', {
+        fileKey,
+        fileName,
+      });
+      return response.data;
+    },
+    onSuccess: () => {
+      setUploading(false);  // Set uploading to false when mutation is successful
+    },
+    onError: () => {
+      setUploading(false);  // Set uploading to false when mutation fails
+    }
+  });
 
-  // Using the react-dropzone module to create drag and drop files uploader
   const { getRootProps, getInputProps } = useDropzone({
     accept: { 'application/pdf': [".pdf"] },
     maxFiles: 1,
     onDrop: (acceptedFiles) => {
-      console.log(acceptedFiles);
-      // Upload files to firebase
-      if (!acceptedFiles) return;  // If no files are accepted
+      if (!acceptedFiles.length) return;
 
-      // Select the First PDF file
       const pdfFile = acceptedFiles[0];
-
-      // Check for File Size
-      if (pdfFile.size > 10 * 1024 * 1024) {
-        // Bigger File than 10MB
-        alert('File is too big');
+      if (pdfFile.size > 15 * 1024 * 1024) {
+        toast.error('File is too large');
         return;
       }
 
-      // File Structure and Uploading 
-      const fileStructure = `/files/${pdfFile.name}`;
-      const storageRef = ref(storage, fileStructure);
-      const uploadTask = uploadBytesResumable(storageRef, pdfFile);
+      try {
+        setUploading(true);  // Start uploading when a file is dropped
 
-      // Note - The firebase has been set to allow all the users to upload and read files from the rules this needs to be avoided in production and allow only authenticated users
+        const fileStructure = `/files/${pdfFile.name}`;
+        const storageRef = ref(storage, fileStructure);
+        const uploadTask = uploadBytesResumable(storageRef, pdfFile);
 
-      // Upload Progress
-      uploadTask.on('state_changed', (snapshot) => {
-        const uploadProgress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(uploadProgress);
-      },
-        (err) => console.log(err),
-        () => { getDownloadURL(uploadTask.snapshot.ref).then((download) => console.log(download)) },
-      );
+        uploadTask.on('state_changed',
+          (snapshot) => {
+            const uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+            console.log(uploadProgress);
+          },
+          (err) => {
+            console.log(err);
+            setUploading(false);  // Stop uploading if there is an error
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              console.log(downloadURL);
+
+              if (!fileStructure || !pdfFile.name) {
+                toast.error("Something went wrong");
+                setUploading(false);  // Stop uploading if there is an error
+                return;
+              }
+
+              // Caching the query using react-query
+              mutate({ fileKey: fileStructure, fileName: pdfFile.name }, {
+                onSuccess: (data) => {
+                  // toast.success(data.message);
+                  console.log(data);
+                },
+                onError: (error) => {
+                  toast.error("Error Creating Chat");
+                },
+              });
+            });
+          }
+        );
+      } catch (error) {
+        console.log(error);
+        setUploading(false);  // Stop uploading if there is an error
+      }
     }
   });
-
 
   return (
     <>
       <div className="p-2 bg-white rounded-xl">
-        <div  {...getRootProps({
+        <div {...getRootProps({
           className: 'border-dashed border-2 rounded-xl cursor-pointer bg-gray-50 py-8 flex justify-center items-center flex-col'
         })}>
           <input {...getInputProps()} />
-          <>
-            <Inbox className='w-10 h-10 text-blue-500' />
-            <p className="mt-2 text-sm text-slate-400">Drop PDF Here</p>
-          </>
+          {(uploading || status === 'pending') ? (
+            // Loading State
+            <>
+              <Loader2 className='h-10 w-10 text-blue-500 animate-spin' />
+              <p className='mt-2 text-sm text-slate-400'>
+                Spilling the tea to GPT...
+              </p>
+            </>
+          ) : (
+            <>
+              <Inbox className='w-10 h-10 text-blue-500' />
+              <p className="mt-2 text-sm text-slate-400">Drop PDF Here</p>
+            </>
+          )}
         </div>
       </div>
     </>
-  )
+  );
 };
 
 export default FileUpload;
