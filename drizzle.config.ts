@@ -1,13 +1,14 @@
+// drizzle.config.ts
+
 import { defineConfig } from "drizzle-kit";
 import dotenv from "dotenv";
 
 dotenv.config({ path: ".env" });
 
-// Configuration for drizzle ORM, where it has to look for schema files
 export default defineConfig({
-    dialect: 'postgresql',                   // What database we are using
-    schema: './src/lib/db/schema.ts',        // Destination for schema files
+    dialect: 'postgresql',  // PostgreSQL as the database dialect
+    schema: './src/lib/db/schema.ts',  // Path to the schema files
     dbCredentials: {
-        url: process.env.DATABASE_URL || '', // Database URL
+        url: process.env.DATABASE_URL || '',  // PostgreSQL database URL from environment variables
     }
 });

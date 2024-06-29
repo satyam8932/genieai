@@ -13,6 +13,7 @@ export const pdfChats = pgTable('pdfChats', {
     fileKey: text('file_key').notNull(),
 });
 
+export type PDFChatType = typeof pdfChats.$inferInsert;
 
 // Schema for PDF Chat Messages
 export const pdfChatMessages = pgTable('pdfChatMessages', {

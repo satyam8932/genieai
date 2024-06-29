@@ -7,8 +7,10 @@ import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios';
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const FileUpload = () => {
+  const router = useRouter();
   const [uploading, setUploading] = React.useState(false);  // Track upload progress state
   const { mutate, status } = useMutation({
     mutationFn: async ({ fileKey, fileName }: { fileKey: string, fileName: string }) => {
@@ -41,14 +43,15 @@ const FileUpload = () => {
       try {
         setUploading(true);  // Start uploading when a file is dropped
 
-        const fileStructure = `/files/${pdfFile.name}`;
+        const fileStructure = `${pdfFile.name}`;  // File structure changed as previous it wa /file/
         const storageRef = ref(storage, fileStructure);
+        console.log(storageRef);
         const uploadTask = uploadBytesResumable(storageRef, pdfFile);
 
         uploadTask.on('state_changed',
           (snapshot) => {
             const uploadProgress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-            console.log(uploadProgress);
+            // console.log(uploadProgress);  // Upload progress
           },
           (err) => {
             console.log(err);
@@ -56,7 +59,7 @@ const FileUpload = () => {
           },
           () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              console.log(downloadURL);
+              // console.log(downloadURL);  // URL link
 
               if (!fileStructure || !pdfFile.name) {
                 toast.error("Something went wrong");
@@ -66,9 +69,9 @@ const FileUpload = () => {
 
               // Caching the query using react-query
               mutate({ fileKey: fileStructure, fileName: pdfFile.name }, {
-                onSuccess: (data) => {
-                  // toast.success(data.message);
-                  console.log(data);
+                onSuccess: (chatId) => {
+                  toast.success("Chat Created!");
+                  router.push(`/chat/${chatId.pdfChatId}`);
                 },
                 onError: (error) => {
                   toast.error("Error Creating Chat");

@@ -74,3 +74,13 @@
       @apply bg-background text-foreground;
     }
   }
+
+  ::-webkit-scrollbar {
+    background-color: transparent;
+    width: 0.3rem;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #c7c7c7;
+    border-radius: 1rem;
+  }
