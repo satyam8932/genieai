@@ -10,6 +10,7 @@ import { pdfChats } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -33,11 +34,11 @@ export default async function Home() {
             </div>
             <div className="flex m-2 items-center justify-center">
               {isAuth && firstChat &&
-              (  
-                <Link href={`/chat/${firstChat.id}`}>
-                  <Button>Go to Chats <ArrowRight className="ml-2" /></Button>
-                </Link>
-              )}
+                (
+                  <Link href={`/chat/${firstChat.id}`}>
+                    <Button>Go to Chats <ArrowRight className="ml-2" /></Button>
+                  </Link>
+                )}
               <div className="ml-3">
                 <SubscriptionButton isPro={isPro} />
               </div>
@@ -45,9 +46,11 @@ export default async function Home() {
             <p className="max-w-xl mt-1 text-lg text-slate-600">
               Join millions of students, researchers, and professionals in the AI world to improve their research and business.
             </p>
-            <div className="w-full mt-4">
+            <div className="w-full mt-4 rounded-xl shadow-xl">
               {isAuth ?
-                (<FileUpload />) :
+                (<div className="p-4">
+                  <FileUpload />
+                </div>) :
                 (
                   <Link href="/signin">
                     <Button>Login to get started!
@@ -56,6 +59,16 @@ export default async function Home() {
                   </Link>
                 )
               }
+              <div className="flex justify-center items-center w-full h-full p-4">
+                <Image
+                  src='/banner.png'
+                  alt="Banner Image"
+                  width={700}
+                  height={600}
+                  className="w-full max-w-[700px] h-auto rounded-xl border-gray-300"
+                />
+              </div>
+
             </div>
           </div>
         </div>
