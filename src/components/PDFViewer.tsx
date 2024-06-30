@@ -12,7 +12,7 @@ const PDFViewer = ({ pdf_url }: Props) => {
     const encodedUrl = encodeURIComponent(pdf_url);
     const googleDocsUrl = `https://docs.google.com/viewer?embedded=true&url=${encodedUrl}`;
     setIframeUrl(googleDocsUrl);
-  }, []);
+  }, [pdf_url]);
 
   return (
     <iframe
