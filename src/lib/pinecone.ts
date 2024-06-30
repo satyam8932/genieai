@@ -6,107 +6,116 @@ import { getEmbeddings } from './embeddings';
 import md5 from 'md5';
 import { convertToASCII } from './utils';
 
-// Setup Pinecone Client
+// Initialize and configure Pinecone Client
 export const getPineconeClient = async () => {
-    const pineconeAPIKey = process.env.PINECONE_API_KEY;
-
-    if (!pineconeAPIKey) {
-        throw new Error('PINECONE_API_KEY is not set in the environment variables');
-    }
-
     const pinecone = new Pinecone({
-        apiKey: pineconeAPIKey,
+        apiKey: process.env.PINECONE_API_KEY as string,  // Pinecone API key from environment variables
     });
-    return pinecone;
+    return pinecone;  // Return the Pinecone client instance
 };
 
-// PDF Parsing Type Define
+// Type for parsed PDF pages
 type PDFPage = {
     pageContent: string;
     metadata: {
-        loc: { pageNumber: number }
+        loc: { pageNumber: number }  // Metadata to track the page number
     };
 };
 
+/**
+ * Load a PDF from Firebase, process it, and upload embeddings to Pinecone.
+ * @param fileKey - The key identifying the PDF file in Firebase Storage.
+ * @returns The first document from the processed pages or `null` if an error occurred.
+ */
 export async function loadFirebaseIntoPinecone(fileKey: string) {
     try {
-        // Downloading PDF files from Firebase
+        // Download the PDF file from Firebase Storage
         const fileName = await downloadFromFirebase(fileKey);
 
         if (!fileName) {
-            throw new Error('Failed to download file from Firebase');
+            throw new Error('Failed to download file from Firebase');  // Error handling for failed download
         }
 
-        // Load the PDF
+        // Load the PDF file
         const loader = new PDFLoader(fileName);
         const pages = (await loader.load()) as PDFPage[];
 
-        // Split and Segment PDF
+        // Prepare documents from PDF pages
         const documents = await Promise.all(pages.map(prepareDocument));
 
-        // Vectorize and embed individual documents
+        // Vectorize the documents and generate embeddings
         const vectors = await Promise.all(documents.flat().map(embedDocument));
 
-        // Upload to Pinecone
+        // Get Pinecone client and upsert vectors
         const client = await getPineconeClient();
         const pineconeIndex = client.Index(process.env.PINECONE_INDEX as string);
-
         const namespace = convertToASCII(fileKey);
-        await pineconeIndex.namespace(namespace).upsert(vectors);
+        await pineconeIndex.namespace(namespace).upsert(vectors);  // Upload vectors to Pinecone
 
-        return documents[0];
+        return documents[0];  // Return the first document from the processed pages
 
     } catch (error) {
-        console.error("Error processing PDF:", error);
-        return null;
+        console.error("Error processing PDF:", error);  // Log errors for debugging
+        return null;  // Return null if an error occurs
     }
 };
 
+/**
+ * Generate Pinecone records from document embeddings.
+ * @param doc - A document containing text and metadata.
+ * @returns A PineconeRecord containing the document's embedding and metadata.
+ */
 async function embedDocument(doc: Document): Promise<PineconeRecord> {
     try {
-        const embeddings = await getEmbeddings(doc.pageContent);
-        const hash = md5(doc.pageContent);
+        const embeddings = await getEmbeddings(doc.pageContent);  // Get embeddings for the document's text
+        const hash = md5(doc.pageContent);  // Create a hash of the page content for a unique ID
 
         return {
-            id: hash,
-            values: embeddings,
+            id: hash,  // Unique ID for the document
+            values: embeddings,  // Embeddings vector for the document
             metadata: {
-                text: doc.metadata.text as string,
-                pageNumber: doc.metadata.pageNumber as number,
+                text: doc.metadata.text as string,  // Text content of the document
+                pageNumber: doc.metadata.pageNumber as number,  // Page number of the document
             }
         };
 
     } catch (error) {
-        console.error("Error embedding document:", error);
-        throw error;
+        console.error("Error embedding document:", error);  // Log errors for debugging
+        throw error;  // Rethrow error for handling in the caller
     }
 };
 
-/* 
-This function helps to first convert the string in uint8Array so that it' we can determine
-the byte length of the string then decode it back to string. This will help to prevent sending
-massive data at once to pinecone 
-*/
+/**
+ * Truncate a string to a specified number of bytes.
+ * @param str - The string to be truncated.
+ * @param bytes - The maximum number of bytes for the truncated string.
+ * @returns The truncated string.
+ */
 export const truncateStringByBytes = (str: string, bytes: number) => {
     const enc = new TextEncoder();
-    return new TextDecoder('utf-8').decode(enc.encode(str).slice(0, bytes));
+    return new TextDecoder('utf-8').decode(enc.encode(str).slice(0, bytes));  // Truncate string to the specified byte length
 };
 
+/**
+ * Prepare a PDF page for processing by cleaning and splitting the content.
+ * @param page - The PDF page to be prepared.
+ * @returns An array of Document objects split by character length.
+ */
 async function prepareDocument(page: PDFPage) {
     let { pageContent, metadata } = page;
-    pageContent = pageContent.replace(/\n/g, '');
+    pageContent = pageContent.replace(/\n/g, '');  // Remove newlines from page content
 
-    // Split the docs
+    // Initialize a text splitter to break the content into smaller chunks
     const splitter = new RecursiveCharacterTextSplitter();
     const docs = await splitter.splitDocuments([
         new Document({
             pageContent,
             metadata: {
-                pageNumber: metadata.loc.pageNumber,
-                text: truncateStringByBytes(pageContent, 36000)
+                pageNumber: metadata.loc.pageNumber,  // Page number for metadata
+                text: truncateStringByBytes(pageContent, 36000)  // Truncate content to avoid exceeding Pinecone limits
             }
         })
     ]);
 
-    return docs;
+    return docs;  // Return the prepared documents
 };

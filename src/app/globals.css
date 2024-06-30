@@ -84,3 +84,19 @@
     background-color: #c7c7c7;
     border-radius: 1rem;
   }
+
+  /* Loading Dot Animation  */
+  @keyframes pulse {
+    0%, 100% { transform: scale(0.8); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 1; }
+  }
+  
+  .loading-dot {
+    width: 10px;
+    height: 10px;
+    /* background-color: #888; */
+    background-color: rgb(124 58 237);
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 1s infinite ease-in-out;
+  }
