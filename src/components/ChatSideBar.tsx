@@ -29,7 +29,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
                         <Link href={`/chat/${chat.id}`} key={chat.id}>
                             <div className={cn('rounded-lg p-3 text-slate-300 flex items-center', {
                                 'bg-zinc-100 text-primary font-semibold': chat.id === chatId,
-                                'text-primary duration-400 ease-in-out transition-colors': chat.id != chatId,
+                                'hover:bg-zinc-100 text-primary duration-400 ease-in-out transition-colors': chat.id != chatId,
                             })}>
                                 <MessageCircle className='m-2' />
                                 <p className='w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis'>{chat.pdfName}</p>

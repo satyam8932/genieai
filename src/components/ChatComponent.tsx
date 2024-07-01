@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import { Crown, Sparkles, Send } from "lucide-react";
+import { Crown, Sparkles, Send, Trash2 } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -82,11 +82,11 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
               <SelectValue placeholder="Select model" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="gpt-3.5-turbo">GPT-3.5</SelectItem>
+              <SelectItem value="gpt-3.5-turbo" >GPT-3.5</SelectItem>
               <SelectItem value="gpt-4" disabled={!isPro}>
-                <div className="flex items-center justify-between w-full text-sm sm:text-base">
+                <div className="flex items-center justify-between w-full">
                   <span>GPT-4</span>
-                  <Crown className="ml-1 h-3 w-3 sm:ml-1 sm:h-4 sm:w-4" />
+                  <Crown className="ml-2 h-3 w-3 sm:ml-1 sm:h-4 sm:w-4" />
                 </div>
               </SelectItem>
             </SelectContent>
@@ -101,7 +101,7 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
             ):(<>Tokens {messageCount}</>)}
           </Button>
           {/* User Management */}
-          <UserButton afterSignOutUrl="/" />
+          <UserButton afterSignOutUrl="http://localhost:3000" />
         </div>
 
 
@@ -110,19 +110,27 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
       <hr />
 
       {/* End of Header */}
+      
+      {/* Chat Area */}
 
-      <div className="flex-1 overflow-y-auto" id="message-container">
+      <div className="flex-1 overflow-y-auto bg-zinc-50" id="message-container">
         <MessageLists messages={messages} isLoading={isLoading} isLoadingAIChat={isLoadingAIChat} />
       </div>
 
       <form onSubmit={handleSubmit} className="px-2 py-4 bg-white border focus:outline-none">
         <div className="flex">
+
+          <Button className="bg-primary mr-2" title="Delete Chat" disabled={isLoadingAIChat}>
+            <Trash2 className="h-4 w-4" />
+          </Button>
+
           <Input
             value={input}
             onChange={handleInputChange}
             placeholder="Ask any question..."
             className="w-full focus:outline-none focus:ring-0"
           />
+
           <Button className="bg-primary ml-2" disabled={isLoadingAIChat}>
             <Send className="h-4 w-4" />
           </Button>
