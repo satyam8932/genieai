@@ -2,7 +2,7 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import axios from 'axios';
-import { Crown } from 'lucide-react'
+import { Crown, Sparkles } from 'lucide-react'
 
 type Props = { isPro: boolean }
 
@@ -21,14 +21,14 @@ const SubscriptionButton = ({ isPro }: Props) => {
     }
     return (
         <>
-            <Button disabled={loading} onClick={handleSubscription} className='bg-violet-600'>
+            <Button disabled={loading} onClick={handleSubscription} className='bg-primary'>
                 {loading ? (
                     "Processing..."
                 ) : (
                     isPro ? (
-                        <>Manage Subscriptions</>
+                        <>Manage Subscriptions <Sparkles className='w-4 h-4 ml-2' /> </>
                     ) : (
-                        <>GenieAI Pro <Crown className="ml-2" /></>
+                        <>GenieAI Pro <Crown className="w-4 h-4 ml-2" /></>
                         
                     )
                 )}

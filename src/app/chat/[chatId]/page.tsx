@@ -41,7 +41,7 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
                 </div>
                 {/* chat component */}
                 <div className="flex-[4] border-l-4 border-l-slate-200">
-                    <ChatComponent chatId={parseInt(chatId)} />
+                    <ChatComponent chatId={parseInt(chatId)} isPro={isPro} />
                 </div>
                 {/* pdf viewer */}
                 <div className="max-h-screen p-4 oveflow-hidden flex-[3] md:flex hidden">
