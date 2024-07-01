@@ -21,7 +21,7 @@ const openai = new OpenAIApi(config);
 export async function POST(req: Request) {
     try {
         // Parse the incoming request JSON payload
-        const { messages, chatId } = await req.json();
+        const { messages, chatId, model } = await req.json();
 
         // Fetch the chat details from the database
         const chats = await db.select().from(pdfChats).where(eq(pdfChats.id, chatId));
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
 
         // Create a chat completion request with streaming enabled
         const response = await openai.createChatCompletion({
-            model: 'gpt-3.5-turbo',
+            model: model,
             messages: [
                 prompt, 
                 ...messages.filter((message: Message) => message.role === 'user')  // Filter messages to include only user messages
