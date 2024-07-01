@@ -17,6 +17,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 import { UserButton } from "@clerk/nextjs";
 
 type Props = {
@@ -26,6 +29,22 @@ type Props = {
 
 const ChatComponent = ({ chatId, isPro }: Props) => {
   const [model, setModel] = React.useState("gpt-3.5-turbo");
+  
+  // For deleting Chat messages
+  const router = useRouter();
+  
+  const handleDeleteChat = async () => {
+    try {
+      await axios.delete("/api/delete-chat", {
+        data: { chatId: chatId.toString() }
+      });
+      toast.success("Chat deleted successfully");
+      router.push("/");
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+      toast.error("Failed to delete chat");
+    }
+  };
 
   // For fetching Messages from DB
   const { data, isLoading } = useQuery({
@@ -120,17 +139,20 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
       <form onSubmit={handleSubmit} className="px-2 py-4 bg-white border focus:outline-none">
         <div className="flex">
 
-          <Button className="bg-primary mr-2" title="Delete Chat" disabled={isLoadingAIChat}>
+          {/* Delete chat button */}
+          <Button className="bg-primary mr-2" title="Delete Chat" disabled={isLoadingAIChat} onClick={handleDeleteChat}>
             <Trash2 className="h-4 w-4" />
           </Button>
-
+          
+          {/* USER input messages */}
           <Input
             value={input}
             onChange={handleInputChange}
             placeholder="Ask any question..."
             className="w-full focus:outline-none focus:ring-0"
           />
-
+          
+          {/* Message send button */}
           <Button className="bg-primary ml-2" disabled={isLoadingAIChat}>
             <Send className="h-4 w-4" />
           </Button>
