@@ -40,7 +40,7 @@ export default async function Home() {
                   </Link>
                 )}
               <div className="ml-3">
-                <SubscriptionButton isPro={isPro} />
+                {!userId ? (''): (<SubscriptionButton isPro={isPro} />)}
               </div>
             </div>
             <p className="max-w-xl mt-1 text-lg text-slate-600">

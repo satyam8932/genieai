@@ -114,7 +114,7 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
 
         {/* Messages Counter */}
         <div className="flex items-center">
-          <Button className="bg-primary mr-2">
+          <Button className="bg-primary bg-yellow-400 mr-2 text-primary hover:bg-yellow-500">
             {isPro ? (
               <><span className="md:flex hidden mr-2">Pro User </span><Sparkles className="h-4 w-4" /> </>
             ):(<>Tokens {messageCount}</>)}
@@ -140,7 +140,7 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
         <div className="flex">
 
           {/* Delete chat button */}
-          <Button className="bg-primary mr-2" title="Delete Chat" disabled={isLoadingAIChat} onClick={handleDeleteChat}>
+          <Button className="bg-yellow-400 mr-2 text-primary hover:bg-yellow-500" type="button" title="Delete Chat" disabled={isLoadingAIChat} onClick={handleDeleteChat}>
             <Trash2 className="h-4 w-4" />
           </Button>
           

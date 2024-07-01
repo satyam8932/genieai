@@ -18,7 +18,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
     return (
         <div className="w-full h-screen flex flex-col overflow-hidden p-4 text-gray-200 bg-white">
             <Link href='/'>
-                <Button className='w-full border-dashed border-white border'>
+                <Button className='w-full border border-dashed'>
                     <PlusCircle className='mr-2 w-4 h-4' />
                     New Chat
                 </Button>
@@ -27,7 +27,7 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
                 <div className="flex flex-col gap-2">
                     {chats.map((chat) => (
                         <Link href={`/chat/${chat.id}`} key={chat.id}>
-                            <div className={cn('rounded-lg p-3 text-slate-300 flex items-center', {
+                            <div className={cn('rounded-lg p-3 h-10 text-slate-300 flex items-center', {
                                 'bg-zinc-100 text-primary font-semibold': chat.id === chatId,
                                 'hover:bg-zinc-100 text-primary duration-400 ease-in-out transition-colors': chat.id != chatId,
                             })}>
