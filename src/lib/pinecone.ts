@@ -46,11 +46,18 @@ export async function loadFirebaseIntoPinecone(fileKey: string) {
         // Vectorize the documents and generate embeddings
         const vectors = await Promise.all(documents.flat().map(embedDocument));
 
-        // Get Pinecone client and upsert vectors
+        // Get Pinecone client and prepare for upserting
         const client = await getPineconeClient();
         const pineconeIndex = client.Index(process.env.PINECONE_INDEX as string);
         const namespace = convertToASCII(fileKey);
-        await pineconeIndex.namespace(namespace).upsert(vectors);  // Upload vectors to Pinecone
+
+        // Upsert vectors in batches of 100
+        const batchSize = 100;
+        for (let i = 0; i < vectors.length; i += batchSize) {
+            const batch = vectors.slice(i, i + batchSize);
+            await pineconeIndex.namespace(namespace).upsert(batch);
+            console.log(`Upserted batch ${i / batchSize + 1} of ${Math.ceil(vectors.length / batchSize)}`);
+        }
 
         return documents[0];  // Return the first document from the processed pages
 
