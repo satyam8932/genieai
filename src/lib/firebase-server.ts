@@ -1,4 +1,5 @@
 import { storage } from './firebase-admin';
+import { ref, getStorage, deleteObject } from 'firebase/storage'
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
@@ -24,5 +25,18 @@ export async function downloadFromFirebase(fileKey: string): Promise<string | nu
   } catch (error) {
     console.error("Error downloading file from Firebase:", error);  // Log any errors encountered
     return null;  // Return null if an error occurred
+  }
+}
+
+
+export async function deleteFromFirebase(fileKey: string): Promise<boolean | string> {
+  try {
+    const bucket = storage.bucket();
+    const cleanFileKey = fileKey.replace(/^\/+/, '');  // Remove leading slashes from the file key
+    const file = bucket.file(cleanFileKey);
+    await file.delete();
+    return true;
+  } catch (err) {
+    return err as string;
   }
 }

@@ -1,7 +1,7 @@
 import admin from 'firebase-admin';
 
 // Initialize Firebase Admin SDK if not already initialized
-// This code is writtne due to downloading files from storage bucket otherwise if we don't use admin code then it will select default none bucket
+// This code is written due to downloading files from storage bucket but if we don't use admin code then it will select default none bucket
 if (!admin.apps.length) {
   try {
     // Parse the service account JSON string from environment variables
