@@ -3,6 +3,7 @@ import { pdfChats, pdfChatMessages } from '@/lib/db/schema';
 import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
+import { deletePineconeVectorAndFirebase } from '@/lib/pinecone';
 
 interface DeleteChatRequestBody {
     chatId: string;
@@ -32,6 +33,13 @@ export async function DELETE(req: Request) {
             return NextResponse.json({ error: 'Invalid chat ID' }, { status: 400 });
         }
 
+        // Deleting files from firebase using fileKey and vectors from pinecone using namespace
+        const fileKeyOrNamespaceResult = await db.select({ fileKey: pdfChats.fileKey })
+            .from(pdfChats)
+            .where(eq(pdfChats.id,chatIdNumber))
+        const fileKeyOrNamespace = fileKeyOrNamespaceResult[0]?.fileKey;
+        await deletePineconeVectorAndFirebase(fileKeyOrNamespace)
+
         // Delete associated messages
         await db.delete(pdfChatMessages)
             .where(eq(pdfChatMessages.chatId, chatIdNumber));
@@ -45,7 +53,7 @@ export async function DELETE(req: Request) {
             return NextResponse.json({ error: 'Chat not found' }, { status: 404 });
         }
 
-        return NextResponse.json({ message: 'Chat and associated messages deleted successfully' }, { status: 200 });
+        return NextResponse.json({ message: 'Chat, associated messages and files deleted successfully' }, { status: 200 });
 
     } catch (err) {
         console.error('Error deleting chat:', err);

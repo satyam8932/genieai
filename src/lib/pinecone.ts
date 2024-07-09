@@ -1,5 +1,5 @@
 import { Pinecone, PineconeRecord } from '@pinecone-database/pinecone';
-import { downloadFromFirebase } from './firebase-server';
+import { deleteFromFirebase, downloadFromFirebase } from './firebase-server';
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { Document, RecursiveCharacterTextSplitter } from "@pinecone-database/doc-splitter";
 import { getEmbeddings } from './embeddings';
@@ -126,3 +126,21 @@ async function prepareDocument(page: PDFPage) {
 
     return docs;  // Return the prepared documents
 };
+
+/**
+ * Deletes namespaces including all the vectors in pinecone and files from firebase using fileKey.
+ * @param namespace - The namespace to be deleted and it will acts as a fileKey.
+ * @returns Boolean value if success then true else false.
+ */
+export async function deletePineconeVectorAndFirebase(namespace: string) {
+    try {
+        const client = await getPineconeClient();
+        const pineconeIndex = client.Index(process.env.PINECONE_INDEX as string);
+        await pineconeIndex.namespace(namespace).deleteAll();
+        const fileKey = namespace;  // Namespace is same as filekey
+        await deleteFromFirebase(fileKey);
+        return true; // Success
+    } catch (err) {
+        console.log(err);
+    }
+}
