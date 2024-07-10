@@ -45,4 +45,4 @@ Peer dependency for react with clerk and drizzle-orm cause problems so use peer 
 - NeonDB/Serverless
 - Stripe
 - Firebase Storage Bucket (Firebase rules are allowed for all users)
-- Edge Tools    
+- Edge Tools (Runtime)
