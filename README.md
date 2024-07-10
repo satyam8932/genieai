@@ -46,3 +46,4 @@ Peer dependency for react with clerk and drizzle-orm cause problems so use peer 
 - Stripe
 - Firebase Storage Bucket (Firebase rules are allowed for all users)
 - Edge Tools (Runtime)
+- AI/react modules
