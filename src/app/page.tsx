@@ -11,6 +11,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Navbar from "@/components/Navbar";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -25,6 +26,7 @@ export default async function Home() {
   }
   return (
     <>
+      <Navbar />
       <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="flex flex-col items-center text-center">
