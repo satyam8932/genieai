@@ -45,8 +45,8 @@ export async function GET() {
           price_data: {
             currency: 'USD',
             product_data: {
-              name: 'ChatPDF',
-              description: 'Unlimited PDF Sessions!',
+              name: 'GenieAI',
+              description: 'GenieAI Pro Version!',
             },
             unit_amount: 2000,  // $20 per month
             recurring: {
