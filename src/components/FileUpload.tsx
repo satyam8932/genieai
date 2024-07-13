@@ -45,7 +45,7 @@ const FileUpload = () => {
 
         const fileStructure = `${pdfFile.name}`;  // File structure changed as previous it wa /file/
         const storageRef = ref(storage, fileStructure);
-        console.log(storageRef);
+        // console.log(storageRef);
         const uploadTask = uploadBytesResumable(storageRef, pdfFile);
 
         uploadTask.on('state_changed',
@@ -71,7 +71,7 @@ const FileUpload = () => {
               mutate({ fileKey: fileStructure, fileName: pdfFile.name }, {
                 onSuccess: (chatId) => {
                   toast.success("Chat Created!");
-                  router.push(`/chat/${chatId.pdfChatId}`);
+                  router.push(`/docbot/${chatId.pdfChatId}`);
                 },
                 onError: (error) => {
                   toast.error("Error Creating Chat");

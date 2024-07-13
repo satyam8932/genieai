@@ -10,6 +10,8 @@ const isProtectedRoute = createRouteMatcher([
   '/chat(.*)',  // Matches any path starting with '/chat'
   '/create-chat(.*)',  // Matches any path starting with '/create-chat'
   '/get-messages(.*)',  // Matches any path starting with '/get-messages'
+  '/dashboard(.*)', // Matches any path starting with '/dashboard
+  '/docbot(.*)', // Matches any path starting with '/docbot
 ]);
 
 export default clerkMiddleware((auth, req) => {

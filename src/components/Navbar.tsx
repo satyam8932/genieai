@@ -7,14 +7,14 @@ import { auth } from "@clerk/nextjs/server";
 
 type Props = {};
 
-const Navbar = async (props: Props) => {
+const Navbar = (props: Props) => {
 
-    const { userId } = await auth();
+    const { userId } = auth();
     const isAuth = !!userId
 
     return (
         <div className="bg-[rgb(15,23,42)] flex flex-row justify-evenly items-center py-4">
-            <div className="text-2xl font-semibold text-white">GenieAI</div>
+            <Link href='/' className="text-2xl font-semibold text-white">GenieAI</Link>
             <div className="center">
                 {/* <Button>Subscribe</Button> */}
             </div>
@@ -28,7 +28,7 @@ const Navbar = async (props: Props) => {
                         </Button>
                     </Link>
                 )}
-                <UserButton afterSignOutUrl="/" />
+                {isAuth && <UserButton afterSignOutUrl="/" />}
             </div>
         </div>
     );

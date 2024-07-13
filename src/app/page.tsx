@@ -1,29 +1,19 @@
 import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { LogIn } from "lucide-react";
 import Link from "next/link";
-import FileUpload from "../components/FileUpload";
 import { checkSubscription } from "@/lib/subscription";
 import SubscriptionButton from "@/components/SubscriptionButton";
-import { pdfChats } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-import { db } from "@/lib/db";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import Pricing from "@/components/Pricing";
 
 export default async function Home() {
   const { userId } = await auth();
   const isAuth = !!userId
   const isPro = await checkSubscription();
-  let firstChat;
-  if (userId) {
-    firstChat = await db.select().from(pdfChats).where(eq(pdfChats.userId, userId));
-    if (firstChat) {
-      firstChat = firstChat[0];
-    }
-  }
   return (
     <>
       <Navbar />
@@ -31,14 +21,13 @@ export default async function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="flex flex-col items-center text-center">
             <div className="flex items-center">
-              <h1 className="mr-3 text-5xl font-bold">GenieAI</h1>
-              <UserButton afterSignOutUrl="/" />
+              <h1 className="m-3 text-5xl font-bold">GenieAI</h1>
             </div>
             <div className="flex m-2 items-center justify-center">
-              {isAuth && firstChat &&
+              {isAuth &&
                 (
-                  <Link href={`/chat/${firstChat.id}`}>
-                    <Button>Go to Chats <ArrowRight className="ml-2" /></Button>
+                  <Link href={`/dashboard`}>
+                    <Button>Go to Dashboard <ArrowRight className="ml-2" /></Button>
                   </Link>
                 )}
               <div className="ml-3">
@@ -50,9 +39,7 @@ export default async function Home() {
             </p>
             <div className="w-full mt-4 rounded-xl shadow-xl">
               {isAuth ?
-                (<div className="p-4">
-                  <FileUpload />
-                </div>) :
+                ('') :
                 (
                   <Link href="/signin">
                     <Button>Login to get started!
@@ -75,6 +62,8 @@ export default async function Home() {
           </div>
         </div>
       </div>
+      <Pricing />
+      <Footer />
     </>
   )
 }
