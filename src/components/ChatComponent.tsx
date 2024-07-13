@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Link from "next/link";
 import Image from "next/image";
-import { Crown, Sparkles, Send, Trash2 } from "lucide-react";
+import { Crown, Loader, Send, Trash2 } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -29,17 +29,18 @@ type Props = {
 
 const ChatComponent = ({ chatId, isPro }: Props) => {
   const [model, setModel] = React.useState("gpt-3.5-turbo");
-  
+  const [deleting, setDeletingButton] = React.useState(false);
   // For deleting Chat messages
   const router = useRouter();
   
   const handleDeleteChat = async () => {
     try {
+      setDeletingButton(true);
       await axios.delete("/api/delete-chat", {
         data: { chatId: chatId.toString() }
       });
       toast.success("Chat deleted successfully");
-      router.push("/");
+      router.push("/docbot");
     } catch (error) {
       console.error("Error deleting chat:", error);
       toast.error("Failed to delete chat");
@@ -116,11 +117,11 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
         <div className="flex items-center">
           <Button className="bg-primary bg-yellow-400 mr-2 text-primary hover:bg-yellow-500">
             {isPro ? (
-              <><span className="md:flex hidden mr-2">Pro User </span><Sparkles className="h-4 w-4" /> </>
+              <><span className="md:flex hidden mr-2">Pro User </span><Crown className="h-4 w-4" /> </>
             ):(<>Tokens {messageCount}</>)}
           </Button>
           {/* User Management */}
-          <UserButton afterSignOutUrl="http://localhost:3000" />
+          <UserButton afterSignOutUrl="/" />
         </div>
 
 
@@ -140,8 +141,9 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
         <div className="flex">
 
           {/* Delete chat button */}
-          <Button className="bg-yellow-400 mr-2 text-primary hover:bg-yellow-500" type="button" title="Delete Chat" disabled={isLoadingAIChat} onClick={handleDeleteChat}>
-            <Trash2 className="h-4 w-4" />
+          <Button id="deleteChatButton" className="bg-yellow-400 mr-2 text-primary hover:bg-yellow-500" type="button" title="Delete Chat" disabled={isLoadingAIChat} onClick={handleDeleteChat}>
+            {!deleting && <Trash2 className="h-4 w-4" />}
+            {deleting && <Loader className="h-4 w-4" />}
           </Button>
           
           {/* USER input messages */}
