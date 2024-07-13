@@ -91,7 +91,7 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
         <Link href={"/"}>
           <h3 className="font-bold flex flex-row items-center text-sm lg:text-xl">
             <Image src="/logo.png" alt="logo" width={30} height={20} className="mr-2" />
-            <span className="hidden lg:flex">Chat With PDF</span>
+            <span className="hidden lg:flex">DocBot</span>
           </h3>
         </Link>
 
