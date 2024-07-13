@@ -8,7 +8,7 @@ import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
 // Define the return URL after Stripe payment or services
-const returnUrl = `${process.env.NEXT_BASE_URL}/`;
+const returnUrl = `${process.env.NEXT_BASE_URL}`;
 
 /**
  * Handle GET requests to manage Stripe subscriptions.
