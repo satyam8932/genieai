@@ -64,7 +64,7 @@ const ImageGenerator = (props: Props) => {
             </div>
             <div className="flex justify-center items-center pt-10">
                 {error && <p className="text-red-500">{error}</p>}
-                {isLoading && <Skeleton className="h-[200px] w-[200px] rounded-xl my-24 shadow-xl"></Skeleton>}
+                {isLoading && <Skeleton className="h-[200px] w-[200px] rounded-xl my-24 shadow-xl text-center" />}
                 {!isLoading && !error && (
                     generatedImageUrl ? (
                         <Image
