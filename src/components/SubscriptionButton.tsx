@@ -26,7 +26,7 @@ const SubscriptionButton = ({ isPro }: Props) => {
                     "Processing..."
                 ) : (
                     isPro ? (
-                        <>Manage Subscriptions <Sparkles className='w-4 h-4 ml-2' /> </>
+                        <>Subscriptions<Sparkles className='w-4 h-4 ml-2' /> </>
                     ) : (
                         <>GenieAI Pro <Crown className="w-4 h-4 ml-2" /></>
                         

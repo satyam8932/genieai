@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -5,13 +6,11 @@ import { LogIn } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 
-type Props = {};
+type Props = {
+    isAuth: boolean;
+};
 
-const Navbar = (props: Props) => {
-
-    const { userId } = auth();
-    const isAuth = !!userId
-
+const Navbar = ({ isAuth }: Props) => {
     return (
         <div className="bg-[rgb(15,23,42)] flex flex-row justify-evenly items-center py-4">
             <Link href='/' className="text-2xl font-semibold text-white">GenieAI</Link>

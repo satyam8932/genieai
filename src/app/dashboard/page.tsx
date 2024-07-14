@@ -10,11 +10,14 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { auth } from "@clerk/nextjs/server";
 
 const Dashboard = () => {
+  const { userId } = auth();
+  const isAuth = !!userId;
   return (
     <>
-      <Navbar />
+      <Navbar isAuth={isAuth} />
       <div className="min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 p-8">
         <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {/* Card 1 */}
@@ -41,7 +44,7 @@ const Dashboard = () => {
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="outline">See Demo</Button>
-              <Button>Use Model</Button>
+              <Link href='/artsynth'><Button>Use Model</Button></Link>
             </CardFooter>
           </Card>
 
