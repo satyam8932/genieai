@@ -98,7 +98,7 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
         {/* Model Selector */}
         <div className="flex items-center">
           <Select value={model} onValueChange={setModel}>
-            <SelectTrigger className="w-[130px] text-sm sm:w-[130px] sm:text-base focus:outline-none focus:ring-0">
+            <SelectTrigger className="w-[150px] text-sm sm:w-[130px] sm:text-base focus:outline-none focus:ring-0">
               <SelectValue placeholder="Select model" />
             </SelectTrigger>
             <SelectContent>
