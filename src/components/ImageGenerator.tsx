@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Crown, Sparkle } from 'lucide-react';
 import Image from 'next/image';
 import { Skeleton } from './ui/skeleton';
+import axios from 'axios';
 
 type Props = {};
 
@@ -26,23 +27,16 @@ const ImageGenerator = (props: Props) => {
         setError(null);
 
         try {
-            const response = await fetch('/api/generate-image', {
-                method: 'POST',
+            const response = await axios.post('/api/generate-image', { prompt }, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ prompt }),
+                timeout: 50000 // 50 seconds in milliseconds
             });
-
-            if (!response.ok) {
-                throw new Error('Failed to generate image');
-            }
-
-            const data = await response.json();
-            setGeneratedImageUrl(data.image_url);
+        
+            setGeneratedImageUrl(response.data.image_url);
         } catch (err) {
             console.error('Error generating image:', err);
-            setError('Failed to generate image. Please try again.');
         } finally {
             setIsLoading(false);
         }
