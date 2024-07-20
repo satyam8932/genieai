@@ -88,9 +88,9 @@ const Page = async () => {
                 </svg>
 
                 {/* Main Content */}
-                <div className="max-w-3xl mx-auto">
+                <div className="max-w-3xl mx-auto h-screen">
                     <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">DocBot</h1>
-                    <p className='text-md text-center text-slate-400'>Upload a file to create a chat!</p>
+                    <p className='text-md text-center text-slate-400 my-2'>Upload a file to create a chat!</p>
                     <FileUpload />
                     {isAuth && userChats.length > 0 ?
                         <div className="mt-8">
@@ -125,14 +125,8 @@ const Page = async () => {
                             </div>
                         </div>
                         :
-                        <div className="flex flex-col items-center justify-center mt-8">
-                            <Image
-                                src="/noimages.svg" // Path to your SVG file in the public folder
-                                alt="No Chats Found" // Alt text for accessibility
-                                width={300} // Width of the SVG (adjust as needed)
-                                height={300} // Height of the SVG (adjust as needed)
-                            />
-                        </div>
+                        <>
+                        </>
                     }
                 </div>
             </main>

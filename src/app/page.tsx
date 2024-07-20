@@ -119,10 +119,12 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <div className="mb-96 md:mb-0">
+      <div className="h-screen">
       <Pricing />
       </div>
+      <div className="mt-96 md:mt-0">
       <Footer />
+      </div>
     </>
   )
 }

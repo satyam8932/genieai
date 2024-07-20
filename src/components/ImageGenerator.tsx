@@ -33,7 +33,7 @@ const ImageGenerator = (props: Props) => {
                 },
                 timeout: 50000 // 50 seconds in milliseconds
             });
-        
+
             setGeneratedImageUrl(response.data.image_url);
         } catch (err) {
             console.error('Error generating image:', err);
@@ -59,24 +59,17 @@ const ImageGenerator = (props: Props) => {
             <div className="flex justify-center items-center pt-10">
                 {error && <p className="text-red-500">{error}</p>}
                 {isLoading && <Skeleton className="h-[200px] w-[200px] rounded-xl my-24 shadow-xl text-center" />}
-                {!isLoading && !error && (
+                {!isLoading && !error &&
                     generatedImageUrl ? (
-                        <Image
-                            src={generatedImageUrl}
-                            alt="Generated Image"
-                            width={400}
-                            height={400}
-                            className="rounded-lg"
-                        />
-                    ) : (
-                        <Image
-                            src='/noimages.svg'
-                            alt="No Image"
-                            width={400}
-                            height={100}
-                        />
-                    )
-                )}
+                    <Image
+                        src={generatedImageUrl}
+                        alt="Generated Image"
+                        width={400}
+                        height={400}
+                        className="rounded-lg"
+                    />
+                ) : <></>
+                }
             </div>
         </div>
     );
