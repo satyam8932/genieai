@@ -24,7 +24,7 @@ const ArtSynth = (props: Props) => {
                     preserveAspectRatio="xMidYMid slice"
                     style={{ zIndex: -1 }}
                     opacity="0.46"
-                >
+                > 
                     <defs>
                         <filter
                             id="bbblurry-filter"
