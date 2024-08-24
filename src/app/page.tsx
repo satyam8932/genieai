@@ -106,24 +106,26 @@ export default async function Home() {
                 )
               }
               <div className="flex justify-center items-center w-full h-full p-4">
-                <Image
-                  src='/banner.png'
-                  alt="Banner Image"
-                  width={700}
-                  height={600}
+                <video
+                  src='/genieai demo.mp4'  // Path to your video file
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                   className="w-full max-w-[700px] h-auto rounded-xl border-gray-300"
-                />
+                >
+                  Your browser does not support the video tag.
+                </video>
               </div>
-
             </div>
           </div>
         </div>
       </div>
       <div className="h-screen">
-      <Pricing />
+        <Pricing />
       </div>
       <div className="mt-96 md:mt-0">
-      <Footer />
+        <Footer />
       </div>
     </>
   )
