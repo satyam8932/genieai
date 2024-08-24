@@ -39,7 +39,7 @@ Peer dependency for react with clerk and drizzle-orm cause problems so use peer 
 ## Tools and Technologies used in this project
 
 - Nextjs (Typescript)
-- Dribble ORM
+- Drizzle ORM
 - ShadCN
 - TailwindCSS
 - NeonDB/Serverless
