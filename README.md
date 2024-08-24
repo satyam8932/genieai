@@ -12,7 +12,8 @@ This project is a web-based application leveraging a range of technologies, tool
 - **VS code**: A code editor for building and debugging web and cloud applications. 
 - **Shadcn-ui**: A popular tailwindcss framework to design amazing UI.
 - **Drizzle ORM**: A popular typescript based postgresql ORM which works with edge runtime. 
-- **Pinecone**: A popular cloud based fast vector database storage provider. 
+- **Pinecone**: A popular cloud based fast vector database storage provider.
+- **Clerk**: A powerfull authentication provider with effortless integration.
 
 ## Project Setup 
 1. **Initialize the project**: Initialize a new Next.js project using the following command on the terminal. 
@@ -47,3 +48,4 @@ Peer dependency for react with clerk and drizzle-orm cause problems so use peer 
 - Firebase Storage Bucket (Firebase rules are allowed for all users)
 - Edge Tools (Runtime)
 - AI/react modules
+- Clerk Authentication
