@@ -21,7 +21,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
+          {/* <div>
             <h4 className="text-lg font-semibold mb-4 text-white">Quick Links</h4>
             <ul className="space-y-2">
               {['Home', 'About', 'Services', 'Pricing', 'Contact'].map((item) => (
@@ -32,7 +32,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
 
           {/* Contact Info */}
           <div>
@@ -42,14 +42,14 @@ const Footer = () => {
                 <Mail className="w-5 h-5 mr-2 text-gray-400" />
                 <a href="mailto:info@genieai.com" className="hover:text-white transition-colors">info@genieai.com</a>
               </div>
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <Phone className="w-5 h-5 mr-2 text-gray-400" />
                 <a href="tel:+11234567890" className="hover:text-white transition-colors">+1 (123) 456-7890</a>
-              </div>
+              </div> */}
               <p className="mt-4 text-sm">
                 123 AI Street, Tech City<br />
                 Innovation State, 12345<br />
-                United States
+                India
               </p>
             </div>
           </div>

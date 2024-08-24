@@ -19,7 +19,7 @@ This project is a web-based application leveraging a range of technologies, tool
     `npx create-next-app@latest --typescript` 
     When prompted, name the project "Chats-PDF.-youtube". Be sure to use the TypeScript flag. 
 
-2. **Open the project**: Change the directory to the project root folder "chat-pdf-youtube" using the following command. `cd chat-pdf-youtube` Open the project in the vscode using the following command. 
+2. **Open the project**: Change the directory to the project root folder "chat-pdf-youtube" using the following command. `cd genieai` Open the project in the vscode using the following command. 
     `code .` 
 
 3. **Add the Environmental Variables to .env file**: Get the environment variables from the given database URL and add those to your .env file in the form of key-value pairs. The file should look like this:
