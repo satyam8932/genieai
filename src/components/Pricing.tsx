@@ -3,22 +3,22 @@ import Link from 'next/link';
 const Pricing = () => {
     const features = [
         { name: "DocBot Chats", free: "10", pro: "Unlimited" },
-        { name: "GPT-4", free: "-", pro: true },
-        { name: "DALL-E 3", free: "-", pro: true },
-        { name: "Whisper", free: "-", pro: true },
+        { name: "GPT-4", free: "❌", pro: "✔"},
+        // { name: "DALL-E 3", free: "❌", pro: "✔" },
+        // { name: "Whisper", free: "❌", pro: "✔" },
         { name: "Image Generation", free: "5", pro: "50" },
         { name: "Audio Transcription", free: "5", pro: "50" },
     ];
 
     return (
-        <section className="pb-10 sm:pb-16 lg:pb-24 h-screen">
+        <section className="pb-10 sm:pb-16 lg:pb-24">
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div className="max-w-xl mx-auto text-center mb-16">
                     <h2 className="text-4xl font-bold text-gray-900 lg:text-5xl sm:text-5xl">Pricing & Plans</h2>
                     <p className="mt-4 text-xl text-gray-600">Choose the plan that&apos;s right for you</p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8 font-bold">
                     {['Free', 'Pro'].map((plan, index) => (
                         <div key={plan} className={`rounded-2xl shadow-lg overflow-hidden ${index === 1 ? 'bg-[rgb(15,23,42)]' : 'bg-white'}`}>
                             <div className="p-8">
@@ -30,9 +30,6 @@ const Pricing = () => {
                                 <ul className="mt-8 space-y-4">
                                     {features.map((feature) => (
                                         <li key={feature.name} className="flex items-center">
-                                            <svg className={`w-5 h-5 ${index === 1 ? 'text-white' : 'text-[rgb(15,23,42)]'}`} fill="currentColor" viewBox="0 0 20 20">
-                                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                                            </svg>
                                             <span className={`ml-3 ${index === 1 ? 'text-white' : 'text-gray-600'}`}>
                                                 {feature.name}: {index === 0 ? feature.free : feature.pro}
                                             </span>

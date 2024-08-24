@@ -8,6 +8,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { auth } from '@clerk/nextjs/server';
 import { ArrowRight } from 'lucide-react';
+import { checkSubscription } from "@/lib/subscription";
 import Image from 'next/image';
 
 type PDFChat = {
@@ -26,7 +27,7 @@ const Page = async () => {
     if (userId) {
         userChats = await db.select().from(pdfChats).where(eq(pdfChats.userId, userId));
     }
-
+    const isPro = await checkSubscription();
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar isAuth={isAuth} />
@@ -90,8 +91,23 @@ const Page = async () => {
                 {/* Main Content */}
                 <div className="max-w-3xl mx-auto h-screen">
                     <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">DocBot</h1>
-                    <p className='text-md text-center text-slate-400 my-2'>Upload a file to create a chat!</p>
-                    <FileUpload />
+                    {userChats.length >= 10 ? (
+                        isPro ? (
+                            <>
+                                <p className='text-md text-center text-slate-400 my-2'>Upload a PDF to create a chat!</p>
+                                <FileUpload />
+                            </>
+                        ) : (
+                            <div className="text-center mt-8">
+                                <p className="text-lg text-red-600">You have reached the limit of 10 chats. Upgrade to Pro to upload more files.</p>
+                            </div>
+                        )
+                    ) : (
+                        <>
+                            <p className='text-md text-center text-slate-400 my-2'>Upload a PDF to create a chat!</p>
+                            <FileUpload />
+                        </>
+                    )}
                     {isAuth && userChats.length > 0 ?
                         <div className="mt-8">
                             <h2 className="text-xl font-semibold mb-4">Created Chats</h2>
@@ -102,7 +118,7 @@ const Page = async () => {
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chat Name</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">View</th>
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
@@ -126,11 +142,18 @@ const Page = async () => {
                         </div>
                         :
                         <>
+                            <div className="flex flex-col items-center justify-center p-6 mt-10 bg-gray-50 rounded-lg shadow-md">
+                                <h2 className="text-2xl font-semibold text-gray-600 mb-4">
+                                    Ummm... looks like you haven&apos;t created a chat yet.
+                                </h2>
+                                <p className="text-gray-500 mb-6">
+                                    Start a conversation by uploading a PDF file.
+                                </p>
+                            </div>
                         </>
                     }
                 </div>
             </main>
-
             <Footer />
         </div>
     );
