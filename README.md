@@ -18,7 +18,7 @@ This project is a web-based application leveraging a range of technologies, tool
 ## Project Setup 
 1. **Initialize the project**: Initialize a new Next.js project using the following command on the terminal. 
     `npx create-next-app@latest --typescript` 
-    When prompted, name the project "Chats-PDF.-youtube". Be sure to use the TypeScript flag. 
+    When prompted, name the project "GenieAI". Be sure to use the TypeScript flag. 
 
 2. **Open the project**: Change the directory to the project root folder "chat-pdf-youtube" using the following command. `cd genieai` Open the project in the vscode using the following command. 
     `code .` 
