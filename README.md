@@ -31,7 +31,7 @@ This project is a web-based application leveraging a range of technologies, tool
 
 4. **Setup Next Base URL (Optional)**: List down the next base URL in the environmental variables section of your project. This URL might need to be updated later with the one provided by the platform you choose to deploy your project. 
 
-5. **Run the project**: To make sure that the project is set up correctly, run the following command. `npm run dev` That's all! We have set up our 'Chats-PDF.-youtube' project successfully. Just visit your localhost to check whether everything is working fine or not. ## Deployment When you are ready to deploy, update the `NEXT_BASE_URL` variable in your .env file with the Versel URL or URL that your specific platform provides. Please note, this is a generalized setup, more specific changes might be required according to the need of your project.
+5. **Run the project**: To make sure that the project is set up correctly, run the following command. `npm run dev` That's all! We have set up our `GenieAI` project successfully. Just visit your localhost to check whether everything is working fine or not. ## Deployment When you are ready to deploy, update the `NEXT_BASE_URL` variable in your .env file with the Versel URL or URL that your specific platform provides. Please note, this is a generalized setup, more specific changes might be required according to the need of your project.
 
 ## Dependecies Issue
 
