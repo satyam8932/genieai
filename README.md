@@ -145,3 +145,10 @@ It is important to adhere to the guidelines; violations can affect your profile.
 <a href="https://github.com/satyam8932/genieai/pulse">
   <img align="center" src="https://contrib.rocks/image?max=100&repo=satyam8932/genieai" />
 </a>
+
+---
+
+## ⏱️ Final Note
+
+Thank you for taking the time to explore the **Chats-PDF** project! Your contributions, feedback, and support are invaluable to us. Together, let's make this project even better! If you have any questions or suggestions, feel free to reach out. If you find this project helpful, please consider giving it a ⭐️! Your support motivates us to continue improving and maintaining this project.
+
