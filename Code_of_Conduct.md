@@ -37,7 +37,7 @@ This Code of Conduct applies both within project spaces (e.g., GitHub repository
 
 ## Reporting Violations
 
-If you witness or experience any behavior that violates this Code of Conduct, you are encouraged to report it by contacting the maintainers at [your-email@example.com]. All reports will be reviewed and investigated promptly and with confidentiality. We are committed to taking appropriate actions to address any issues.
+If you witness or experience any behavior that violates this Code of Conduct, you are encouraged to report it by contacting the maintainers . All reports will be reviewed and investigated promptly and with confidentiality. We are committed to taking appropriate actions to address any issues.
 
 ## Enforcement Guidelines
 
