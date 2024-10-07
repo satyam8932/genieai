@@ -1,6 +1,6 @@
 # Chats-PDF ✨
 
-
+![GSSoC](GSSoC-Ext.png)
 
 ## Table of Contents 📚
 
@@ -20,6 +20,7 @@
 **Project Name:** Chats-PDF
 
 This web-based application leverages a range of technologies, tools, and frameworks to provide an efficient chat and PDF management system.
+[interface](genieai.png)
 
 ## Technology and Tools 🛠️
 
