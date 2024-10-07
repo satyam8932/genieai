@@ -1,4 +1,4 @@
-# Chats-PDF ✨
+# GenieAI ✨
 
 ![GSSoC](GSSoC-Ext.png)
 
@@ -17,7 +17,7 @@
 
 ## Project Overview 📝
 
-**Project Name:** Chats-PDF
+**Project Name:** GenieAI
 
 This web-based application leverages a range of technologies, tools, and frameworks to provide an efficient chat and PDF management system.
 ![interface](genieai.png)
@@ -82,7 +82,7 @@ Peer dependency issues for React with Clerk and Drizzle ORM can cause problems, 
 
 ## How to Contribute to This Project⛓️
 
-We’re excited to have you contribute to the **Chats-PDF** project! Follow these simple steps to get started:
+We’re excited to have you contribute to the **GenieAI** project! Follow these simple steps to get started:
 
 1. **🍴 Fork the Repository**  
    - Go to the [repository page](https://github.com/satyam8932/genieai).
@@ -151,5 +151,5 @@ It is important to adhere to the guidelines; violations can affect your profile.
 
 ## ⏱️ Final Note
 
-Thank you for taking the time to explore the **Chats-PDF** project! Your contributions, feedback, and support are invaluable to us. Together, let's make this project even better! If you have any questions or suggestions, feel free to reach out. If you find this project helpful, please consider giving it a ⭐️! Your support motivates us to continue improving and maintaining this project.
+Thank you for taking the time to explore the **GenieAI** project! Your contributions, feedback, and support are invaluable to us. Together, let's make this project even better! If you have any questions or suggestions, feel free to reach out. If you find this project helpful, please consider giving it a ⭐️! Your support motivates us to continue improving and maintaining this project.
 
