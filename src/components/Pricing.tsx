@@ -14,8 +14,8 @@ const Pricing = () => {
         <section className="pb-10 sm:pb-16 lg:pb-24">
             <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div className="max-w-xl mx-auto text-center mb-16">
-                    <h2 className="text-4xl font-bold text-gray-900 lg:text-5xl sm:text-5xl">Pricing & Plans</h2>
-                    <p className="mt-4 text-xl text-gray-600">Choose the plan that&apos;s right for you</p>
+                    <h2 className="text-4xl font-bold text-gray-900 dark:text-white/90 lg:text-5xl sm:text-5xl">Pricing & Plans</h2>
+                    <p className="mt-4 text-xl text-gray-600 dark:text-white/80">Choose the plan that&apos;s right for you</p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8 font-bold">

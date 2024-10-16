@@ -27,15 +27,15 @@ const MessageLists = ({ messages, isLoading, isLoadingAIChat }: Props) => {
   if (!messages) return null
 
   return (
-    <div className="flex flex-col gap-2 px-2 m-2">
+    <div className="flex flex-col gap-2 px-2 m-2 bg-white dark:bg-black">
       {messages.map(message => (
         <div key={message.id} className={cn('flex', {
           'justify-end': message.role === 'user',
           'justify-start': message.role === 'assistant',
         })}>
           <div className={
-            cn('rounded-lg px-3 text-sm py-1 shadow-md ring-1 ring-gray-900/10', {
-              'bg-primary text-white': message.role === 'user',
+            cn('rounded-lg px-3 text-sm py-1 shadow-md ring-1 ring-gray-900/10 dark:ring-gray-900/85', {
+              'bg-primary text-white ': message.role === 'user',
               'bg-white text-primary': message.role === 'assistant',
             })
           }>
@@ -45,7 +45,7 @@ const MessageLists = ({ messages, isLoading, isLoadingAIChat }: Props) => {
       ))}
       {isLoadingAIChat && (
         <div className="flex justify-start">
-          <div className="bg-gray-100 rounded-lg px-3 py-1 shadow-md ring-1 ring-gray-900/10">
+          <div className="bg-gray-100 dark:bg-neutral-800 rounded-lg px-3 py-1 shadow-md ring-1 ring-gray-900/10">
             <LoadingDot />
           </div>
         </div>

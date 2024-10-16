@@ -78,7 +78,7 @@ export default async function Home() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <div className="flex flex-col items-center text-center">
             <div className="flex items-center">
-              <h1 className="m-3 text-5xl font-bold">GenieAI</h1>
+              <h1 className="m-3 text-5xl font-bold text-black dark:text-white">GenieAI</h1>
             </div>
             <div className="flex m-2 items-center justify-center">
               {isAuth &&
@@ -91,7 +91,7 @@ export default async function Home() {
                 {!userId ? ('') : (<SubscriptionButton isPro={isPro} />)}
               </div>
             </div>
-            <p className="max-w-xl mt-1 text-lg text-slate-600">
+            <p className="max-w-xl mt-1 text-lg text-black dark:text-slate-100">
               Join millions of students, researchers, and professionals in the AI world to improve their research and business.
             </p>
             <div className="w-full mt-4 rounded-xl shadow-xl">
@@ -112,7 +112,7 @@ export default async function Home() {
                   loop
                   muted
                   playsInline
-                  className="w-full max-w-[700px] h-auto rounded-xl border-gray-300"
+                  className="w-full max-w-[700px] h-auto rounded-xl border-black dark:border-white"
                 >
                   Your browser does not support the video tag.
                 </video>

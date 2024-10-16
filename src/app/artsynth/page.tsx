@@ -77,7 +77,7 @@ const ArtSynth = (props: Props) => {
 
                 <div className="max-w-3xl mx-auto flex flex-col">
                     <h1 className="text-3xl md:text-4xl font-bold text-center mb-8">ArtSynth</h1>
-                    <p className='text-sm text-center text-slate-400'>Unleash your creativity with the power of ArtSynth!</p>
+                    <p className='text-sm text-center text-slate-400 dark:text-black'>Unleash your creativity with the power of ArtSynth!</p>
                     <div className="mt-8">
                         <ImageGenerator />
                     </div>
