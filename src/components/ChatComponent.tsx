@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { useChat } from "ai/react";
 import { Button } from "./ui/button";
@@ -21,6 +21,7 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { UserButton } from "@clerk/nextjs";
+import { useTheme } from "next-themes";
 
 type Props = {
   chatId: number;
@@ -32,6 +33,21 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
   const [deleting, setDeletingButton] = React.useState(false);
   // For deleting Chat messages
   const router = useRouter();
+
+  const {systemTheme, theme, setTheme} = useTheme();
+  const currentTheme = theme === "dark" ? systemTheme : theme;
+  const [darkMode, setDarkMode] = useState(false);
+  useEffect(() => {
+    if(currentTheme==='dark'){
+      setDarkMode(true);
+    }
+    else{
+      setDarkMode(false);
+    }
+  },[currentTheme])
+
+  // console.log(themeCheck)
+  // console.log(darkMode)
   
   const handleDeleteChat = async () => {
     try {
@@ -83,8 +99,8 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
   }, [data]);
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="sticky top-0 inset-x-0 p-2 bg-white h-fit flex justify-between items-center ">
+    <div className={`flex flex-col h-full ${darkMode ? "bg-black text-white" : "bg-white text-black"}`}>
+      <div className="sticky top-0 inset-x-0 p-2 h-fit flex justify-between items-center ">
 
         {/* Homepage */}
 
@@ -115,7 +131,7 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
 
         {/* Messages Counter */}
         <div className="flex items-center">
-          <Button className="bg-primary bg-yellow-400 mr-2 text-primary hover:bg-yellow-500">
+          <Button className="bg-yellow-400 dark:bg-yellow-600 text-primary dark:text-white hover:bg-yellow-500 dark:hover:bg-yellow-700 mr-2">
             {isPro ? (
               <><span className="md:flex hidden mr-2">Pro User </span><Crown className="h-4 w-4" /> </>
             ):(<>Tokens {messageCount}</>)}
@@ -133,15 +149,15 @@ const ChatComponent = ({ chatId, isPro }: Props) => {
       
       {/* Chat Area */}
 
-      <div className="flex-1 overflow-y-auto bg-zinc-50" id="message-container">
+      <div className="flex-1 overflow-y-auto bg-zinc-50 dark:bg-black/65" id="message-container">
         <MessageLists messages={messages} isLoading={isLoading} isLoadingAIChat={isLoadingAIChat} />
       </div>
 
-      <form onSubmit={handleSubmit} className="px-2 py-4 bg-white border focus:outline-none">
+      <form onSubmit={handleSubmit} className="px-2 py-4 bg-white dark:bg-black border focus:outline-none">
         <div className="flex">
 
           {/* Delete chat button */}
-          <Button id="deleteChatButton" className="bg-yellow-400 mr-2 text-primary hover:bg-yellow-500" type="button" title="Delete Chat" disabled={isLoadingAIChat} onClick={handleDeleteChat}>
+          <Button id="deleteChatButton" className="bg-yellow-400 dark:bg-yellow-600 text-primary dark:text-white hover:bg-yellow-500 dark:hover:bg-yellow-700 mr-2" type="button" title="Delete Chat" disabled={isLoadingAIChat} onClick={handleDeleteChat}>
             {!deleting && <Trash2 className="h-4 w-4" />}
             {deleting && <Loader className="h-4 w-4" />}
           </Button>

@@ -18,7 +18,7 @@ const Dashboard = () => {
   return (
     <>
       <Navbar isAuth={isAuth} />
-      <div className="min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 p-8">
+      <div className="min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 dark:from-rose-900 dark:to-teal-900 p-8">
         <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {/* Card 1 */}
           <Card className="w-full">

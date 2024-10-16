@@ -94,17 +94,17 @@ const Page = async () => {
                     {userChats.length >= 10 ? (
                         isPro ? (
                             <>
-                                <p className='text-md text-center text-slate-400 my-2'>Upload a PDF to create a chat!</p>
+                                <p className='text-md text-center text-slate-400 dark:text-white my-2'>Upload a PDF to create a chat!</p>
                                 <FileUpload />
                             </>
                         ) : (
                             <div className="text-center mt-8">
-                                <p className="text-lg text-red-600">You have reached the limit of 10 chats. Upgrade to Pro to upload more files.</p>
+                                <p className="text-lg text-red-600 ">You have reached the limit of 10 chats. Upgrade to Pro to upload more files.</p>
                             </div>
                         )
                     ) : (
                         <>
-                            <p className='text-md text-center text-slate-400 my-2'>Upload a PDF to create a chat!</p>
+                            <p className='text-md text-center text-slate-400 dark:text-white my-2'>Upload a PDF to create a chat!</p>
                             <FileUpload />
                         </>
                     )}
@@ -115,19 +115,19 @@ const Page = async () => {
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <thead className="bg-gray-50">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chat Name</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">View</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">ID</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Chat Name</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">Created At</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-200 uppercase tracking-wider">View</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="bg-white divide-y divide-gray-200">
+                                    <tbody className="bg-white dark:bg-gray-800  divide-y divide-gray-200 dark:divide-gray-600">
                                         {userChats.map((pdf) => (
                                             <tr key={pdf.id}>
-                                                <td className="px-6 py-4 whitespace-nowrap">{pdf.id}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap">{pdf.pdfName}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap">{pdf.createdAt.toLocaleString()}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
+                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-200">{pdf.id}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-200">{pdf.pdfName}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-200">{pdf.createdAt.toLocaleString()}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap ">
                                                     <Link href={`docbot/${pdf.id}`}>
                                                         <Button>
                                                             <ArrowRight />
@@ -142,8 +142,8 @@ const Page = async () => {
                         </div>
                         :
                         <>
-                            <div className="flex flex-col items-center justify-center p-6 mt-10 bg-gray-50 rounded-lg shadow-md">
-                                <h2 className="text-2xl font-semibold text-gray-600 mb-4">
+                            <div className="flex flex-col items-center justify-center p-6 mt-10 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-md">
+                                <h2 className="text-2xl font-semibold text-gray-600 dark:text-gray-200 mb-4">
                                     Ummm... looks like you haven&apos;t created a chat yet.
                                 </h2>
                                 <p className="text-gray-500 mb-6">
