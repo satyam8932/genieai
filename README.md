@@ -2,7 +2,7 @@
 
 ![GSSoC](GSSoC-Ext.png)
 
-## Table of Contents 📚
+## Table of Contents 📚 
 
 - [Project Overview](#project-overview)
 - [Technology and Tools](#technology-and-tools)
